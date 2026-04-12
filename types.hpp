@@ -2,6 +2,10 @@
 #include <cstdint>
 #include <cstddef>
 namespace bedrock {
+    struct withlength_t {
+        virtual usize size() = 0;
+        virtual ~withlength_t() = default;
+    };
     using usize = size_t;
     using isize = ptrdiff_t;
     using u8 = uint8_t;
@@ -16,4 +20,8 @@ namespace bedrock {
     using nullptr_t = decltype(nullptr);
     using uptr = uintptr_t;
     using iptr = intptr_t;
+
+    usize len(withlength_t& o) {
+        return o.size();
+    }
 }
