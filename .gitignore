@@ -1,0 +1,4 @@
+*
+!*.hpp
+!.gitignore
+test/**

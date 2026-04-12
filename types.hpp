@@ -1,7 +1,9 @@
 #pragma once
 #include <cstdint>
 #include <cstddef>
+#include <functional>
 namespace bedrock {
+    
     using usize = size_t;
     using isize = ptrdiff_t;
     using u8 = uint8_t;
@@ -16,4 +18,5 @@ namespace bedrock {
     using nullptr_t = decltype(nullptr);
     using uptr = uintptr_t;
     using iptr = intptr_t;
+
 }

@@ -1,9 +1,10 @@
 #pragma once
 #include <cstring>
 #include <utility>
+#include <iostream>
 #include "types.hpp"
 namespace bedrock {
-    class string {
+    class string : public withlength_t {
         private:
             char* data = nullptr;
             usize capacity = 0;
@@ -55,7 +56,7 @@ namespace bedrock {
                 return string{data+index, lenght};
             }
 
-            usize size() const { return strlen(data); }
+            usize size() const noexcept { return strlen(data); }
 
             void append(const string& s) {
                 usize data_lenght = strlen(data);
@@ -170,56 +171,9 @@ namespace bedrock {
             void clear() {
                 data[0] = 0;
             }
-            template <bool isConst>
-            class Iterator {
-                using Owner = std::conditional_t<isConst, const string*, string*>;
-                Owner owner = nullptr;
-                usize index{};
-                public:
-                    Iterator(string* s, usize i) : owner(s), index(i) {}; 
-                    Iterator(const string* s, usize i) : owner(s), index(i) {}; 
-                    char& operator*() {
-                        return (*owner)[index];
-                    }
 
-                    const char& operator*() const {
-                        return (*owner)[index];
-                    }
-
-                    bool operator==(const Iterator& other) const {
-                        return owner == other.owner && index == other.index;
-                    }
-
-                    bool operator!=(const Iterator& other) const {
-                        return !(*this == other);
-                    }
-
-                    Iterator& operator--() {
-                        if (index == 0) 
-                            index = owner->size()-1;
-                        else
-                            index--;
-                        return *this;
-                    }
-
-                    const char* cIter() const{
-                        return owner->cstr() + index;
-                    }
-
-                    Iterator& operator++() {
-                        if (index == owner->size()) 
-                            index = 0;
-                        else
-                            index++;
-                        return *this;
-                    }
-            };
-
-            Iterator<false> begin() { return {this, 0}; }
-            Iterator<false> end() { return {this, size()}; }
-
-            Iterator<true> begin() const { return {this, 0}; }
-            Iterator<true> end() const { return {this, size()}; }
+            char* begin() { return data; }
+            char* end() { return data+size(); }
 
 
 
@@ -229,7 +183,7 @@ namespace bedrock {
             }
     };
     
-    usize len(string s) {return s.size();}
+    
 }
 
 bedrock::string operator+(const char* p, const bedrock::string s) {
