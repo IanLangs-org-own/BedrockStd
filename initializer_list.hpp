@@ -3,7 +3,7 @@
 #include "types.hpp"
 namespace bedrock {
     template <typename T>
-    class initializer_list : public withlength_t {
+    class initializer_list {
         private:
             T* data{nullptr};
             usize length{};
