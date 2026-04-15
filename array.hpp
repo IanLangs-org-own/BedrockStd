@@ -1,5 +1,7 @@
 #pragma once
 #include "initializer_list.hpp"
+
+
 #include "assert.hpp"
 namespace bedrock {
     template <typename T, usize N>
