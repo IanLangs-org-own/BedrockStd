@@ -8,14 +8,19 @@ namespace bedrock {
     class Array {
         T data[N];
         public:
+            Array() {
+                for (usize i = 0; i < N; i++)
+                    data[i] = T{};
+            }
+
             Array(initializer_list<T> list) {
                 Vassert(len(list) == N, "invalid length");
                 usize i = 0;
                 for (const auto& elem : list) {
-                    data[i] = elem;
+                    data[i++] = elem;
                 }
             }
-            usize size() const noexcept override {
+            usize size() const noexcept {
                 return N;
             }
 
@@ -45,6 +50,13 @@ namespace bedrock {
                 return data[i];
             }
 
+            constexpr bool operator==(const Array& other) const noexcept {
+                for (usize i = 0; i < N; i++)
+                    if ((*this)[i] != other[i])
+                        return false;
+                return true;
+
+            }
             
     };
 }

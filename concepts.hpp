@@ -46,8 +46,7 @@ namespace bedrock {
             return o.empty();
         } else if constexpr (with_size<decltype(o)>) {
             return o.size() == 0;
-        } else if constexpr (iterable<decltype(o)> {
-            // Fallback para tipos que solo son iterables
+        } else if constexpr (iterable<decltype(o)>) {
             return std::begin(o) == std::end(o);
         } else {
             

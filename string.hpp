@@ -4,7 +4,7 @@
 #include <iostream>
 #include "types.hpp"
 namespace bedrock {
-    class string : public withlength_t {
+    class string {
         private:
             char* data = nullptr;
             usize capacity = 0;
@@ -16,15 +16,14 @@ namespace bedrock {
             }
 
             string(const char* buffer, usize maxlength) : data(new char[maxlength+1]{'\0'}), capacity(maxlength+1) {
-                usize i = 0;
                 bool use_maxlen = true;
 
                 if (maxlength > strlen(buffer))
                     strcpy(data, buffer);
                 else {
                     strncpy(data, buffer, maxlength);
-                    if (data[i] != '\0')
-                        data[i] = '\0';
+                    if (data[maxlength] != '\0')
+                        data[maxlength] = '\0';
                 }
 
                 

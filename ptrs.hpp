@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <cassert>
+#include <iostream>
+#include "assert.hpp"
 #include "types.hpp"
 
 namespace bedrock {
@@ -47,6 +48,10 @@ namespace bedrock {
 
         void reset() {
             free();
+        }
+
+        ~manual_ptr() {
+            if (data != nullptr) std::cout << "unreleased ptr";
         }
 
         observer_ptr<T> observe() const {
@@ -102,8 +107,8 @@ namespace bedrock {
                 return *this;
             }
 
-            T& operator*() const { assert(data != nullptr); return *data; }
-            T* operator->() const  { assert(data != nullptr); return data; }
+            T& operator*() const { Vassert(data != nullptr, "the ptr are nullptr"); return *data; }
+            T* operator->() const  { Vassert(data != nullptr, "the ptr are nullptr"); return data; }
 
             operator bool() const { return data != nullptr; }
     };

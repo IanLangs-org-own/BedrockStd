@@ -4,11 +4,11 @@
 
 #ifdef NDEBUG
 #define Vassert(cond, msg)  ((void)0)
-#define unreachable()       ((void)0)
+#define Unreachable()       ((void)0)
 #define assume(cond)        ((void)0)
 #define panic()             ((void)0)
 #define debugtime(...)      ((void)0)
-#define assert(cond,msg)    ((void)0)
+#define Assert(cond,msg)    ((void)0)
 #else
 
 #define Vassert(cond, msg) \
@@ -22,16 +22,18 @@
         } \
     } while (0)
 
-#define assert(cond, msg) static_assert(cond, msg)
+#define Assert(cond, msg) static_assert(cond, msg)
 
-#define unreachable() \
+#define ToDO() \
+    Assert(false, "ToDo not resolved") 
+
+#define Unreachable() \
     do { \
         std::cerr << "[UNREACHABLE]\n" << \
             "file: " << __FILE__ << ":" << __LINE__ << "\n" << \
             "[UNREACHABLE END]\n"; \
         exit(1); \
     } while(0)
-
 
 #define panic() \
     do { \
@@ -44,7 +46,7 @@
 
 #define assume(cond) \
     do { \
-       if(!(cond)) unreachable(); \
+       if(!(cond)) Unreachable(); \
     } while(0)
 
 

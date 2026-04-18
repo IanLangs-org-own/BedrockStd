@@ -14,9 +14,11 @@ namespace bedrock {
     using i16 = int16_t;
     using i32 = int32_t;
     using i64 = int64_t;
-    using byte = uint8_t;
+    using ubyte = uint8_t;
+    using ibyte = int8_t;
     using nullptr_t = decltype(nullptr);
     using uptr = uintptr_t;
     using iptr = intptr_t;
+    
 
 }

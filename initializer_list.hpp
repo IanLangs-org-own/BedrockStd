@@ -30,10 +30,9 @@ namespace bedrock {
                 list.length = 0;
             }
 
-            template <typename T>
             initializer_list& operator=(T&&) = delete;
 
-            usize size() const noexcept override {
+            usize size() const noexcept {
                 return length;
             }
 
@@ -44,6 +43,22 @@ namespace bedrock {
 
             const T* const ptr() const {
                 return data;
+            }
+
+            T* begin() {
+                return data;
+            }
+
+            const T* begin() const {
+                return data;
+            }
+
+            T* end() {
+                return data + length;
+            }
+
+            const T* end() const {
+                return data + length;
             }
     };
 }
