@@ -2,63 +2,66 @@
 #include <initializer_list>
 #include "types.hpp"
 namespace bedrock {
-    template <typename T>
-    class initializer_list {
-        private:
-            T* data{nullptr};
-            usize length{};
-        public:
-            initializer_list(std::initializer_list<T> list) {
-                data = new T[list.size()];
-                for (const auto& elem : list) {
-                    data[length++] = elem;
+    namespace args {
+    
+        template <typename T>
+        class initializer_list {
+            private:
+                T* data{nullptr};
+                ::bedrock::types::usize length{};
+            public:
+                initializer_list(std::initializer_list<T> list) {
+                    data = new T[list.size()];
+                    for (const auto& elem : list) {
+                        data[length++] = elem;
+                    }
                 }
-            }
 
-            initializer_list(const initializer_list& list) {
-                data = new T[list.length];
-                length = list.length;
-                for (usize i = 0; i < list.length; ++i) {
-                    data[i] = list.data[i];
+                initializer_list(const initializer_list& list) {
+                    data = new T[list.length];
+                    length = list.length;
+                    for (::bedrock::types::usize i = 0; i < list.length; ++i) {
+                        data[i] = list.data[i];
+                    }
                 }
-            }
 
-            initializer_list(initializer_list&& list) {
-                data = list.data;
-                length = list.length;
-                list.data = nullptr;
-                list.length = 0;
-            }
+                initializer_list(initializer_list&& list) {
+                    data = list.data;
+                    length = list.length;
+                    list.data = nullptr;
+                    list.length = 0;
+                }
 
-            initializer_list& operator=(T&&) = delete;
+                initializer_list& operator=(T&&) = delete;
 
-            usize size() const noexcept {
-                return length;
-            }
+                ::bedrock::types::usize size() const noexcept {
+                    return length;
+                }
 
-            ~initializer_list() {
-                delete[] data;
-                data = nullptr; 
-            }
+                ~initializer_list() {
+                    delete[] data;
+                    data = nullptr; 
+                }
 
-            const T* const ptr() const {
-                return data;
-            }
+                const T* const ptr() const {
+                    return data;
+                }
 
-            T* begin() {
-                return data;
-            }
+                T* begin() {
+                    return data;
+                }
 
-            const T* begin() const {
-                return data;
-            }
+                const T* begin() const {
+                    return data;
+                }
 
-            T* end() {
-                return data + length;
-            }
+                T* end() {
+                    return data + length;
+                }
 
-            const T* end() const {
-                return data + length;
-            }
-    };
+                const T* end() const {
+                    return data + length;
+                }
+        };
+    }
 }
